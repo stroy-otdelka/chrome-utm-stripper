@@ -1,7 +1,7 @@
 {
 	"name": "Tracking Token Stripper",
 	"version": "2.9",
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"author": "Jon Parise",
 	"description": "Removes Google Analytics (UTM) parameters, and various other click tracking tokens, from URL query strings.",
 	"homepage_url": "https://github.com/jparise/chrome-utm-stripper",
@@ -9,13 +9,26 @@
 		"48" : "icon-48.png",
 		"128" : "icon-128.png"
 	},
-	"background": {
-		"scripts": ["background.js"]
-	},
 	"permissions": [
-		"webRequest",
-		"webRequestBlocking",
-		"https://*/*?*",
-		"http://*/*?*"
-	]
+		"declarativeNetRequest",
+		"declarativeNetRequestWithHostAccess",
+		"declarativeNetRequestFeedback",
+		"activeTab"
+	  ],
+	  "background": {
+		"service_worker": "background.js"
+	  },
+	  "host_permissions": [
+		"http://*/*",
+		"https://*/*"
+	  ],
+	  "declarative_net_request": {
+		"rule_resources": [
+		  {
+			"id": "ruleset_1",
+			"enabled": true,
+			"path": "rules.json"
+		  }
+		]
+	  }
 }
