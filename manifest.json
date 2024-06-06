@@ -13,7 +13,8 @@
 		"declarativeNetRequest",
 		"declarativeNetRequestWithHostAccess",
 		"declarativeNetRequestFeedback",
-		"activeTab"
+		"activeTab",
+		"webNavigation"
 	  ],
 	  "background": {
 		"service_worker": "background.js"
@@ -30,5 +31,12 @@
 			"path": "rules.json"
 		  }
 		]
-	  }
+	  },
+	  "content_scripts": [
+		{
+		  "matches": ["<all_urls>"],
+		  "js": ["content.js"],
+		  "run_at": "document_start"
+		}
+	  ]
 }
