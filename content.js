@@ -33,6 +33,24 @@ const paramsToRemove = [
     childList: true
   });
   
-//   window.addEventListener('popstate', cleanURL);
-
+  // Hook into history API changes
+  (function(history){
+    const pushState = history.pushState;
+    history.pushState = function(state) {
+      const result = pushState.apply(history, arguments);
+      cleanURL();
+      return result;
+    };
+  
+    const replaceState = history.replaceState;
+    history.replaceState = function(state) {
+      const result = replaceState.apply(history, arguments);
+      cleanURL();
+      return result;
+    };
+  })(window.history);
+  
+  window.addEventListener('popstate', cleanURL);
+  
+  cleanURL();
   
